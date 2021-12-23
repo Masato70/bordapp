@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/security_nav"
+    app:startDestination="@id/loginFragment">
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.a.Security.Login.LoginFragment"
+        android:label="login_fragment"
+        tools:layout="@layout/login_fragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_signinFragment"
+            app:destination="@id/signinFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_passwordFragment2"
+            app:destination="@id/passwordFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/signinFragment"
+        android:name="com.example.a.Security.Signin.SigninFragment"
+        android:label="signin_fragment"
+        tools:layout="@layout/signin_fragment" />
+    <fragment
+        android:id="@+id/passwordFragment2"
+        android:name="com.example.a.Security.pswword.PasswordFragment"
+        android:label="password_fragment"
+        tools:layout="@layout/password_fragment" />
+</navigation>

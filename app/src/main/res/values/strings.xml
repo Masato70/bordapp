@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">a</string>
+    <string name="email">メールアドレスはこちら</string>
+    <string name="password">パスワード</string>
+    <string name="btnlogin">ログインする</string>
+    <string name="tvlogin">メールアドレスでログイン</string>
+    <string name="PSkasenn"><u>パスワードをお忘れの方はこちら</u></string>
+    <string name="Createkasenn">アカウント作成する</string>
+    <string name="tvcreate">アカウントを作成</string>
+    <string name="home">ホーム</string>
+    <string name="search">検索</string>
+    <string name="prof">プロフィール</string>
+    <string name="welcom">ようこそ</string>
+</resources>

@@ -2,13 +2,19 @@ package com.example.a.Profile
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.DialogFragment
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
+import com.example.a.MainActivity
 import com.example.a.R
+import com.example.a.Security.LoginActivity
 import com.example.a.databinding.ProfFragmentBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -23,13 +29,12 @@ class ProfFragment : Fragment() {
     private lateinit var viewModel: ProfViewModel
     private var _binding: ProfFragmentBinding? = null
     private val binding get() = _binding!!
-    private lateinit var auth : FirebaseAuth
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +43,7 @@ class ProfFragment : Fragment() {
         _binding = ProfFragmentBinding.inflate(inflater, container, false)
         return (binding.root)
     }
-    
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -49,19 +54,6 @@ class ProfFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun Dialog() {
-        val user = auth.currentUser
-        val strList = arrayOf("あ","い")
-        if (user == null) {
-            val builder = AlertDialog.Builder(activity)
-                .setTitle("タイトル")
-                .setItems(strList,
-                    DialogInterface.OnClickListener { dialog, which->
-
-                })
-        }
     }
 
 }

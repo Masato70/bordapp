@@ -16,6 +16,7 @@ import com.example.a.MainActivity
 import com.example.a.R
 import com.example.a.Security.LoginActivity
 import com.example.a.databinding.ProfFragmentBinding
+import com.example.a.loginDialogFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -34,6 +35,11 @@ class ProfFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
+        val user = Firebase.auth.currentUser
+
+        if(user == null) {
+            loginDialogFragment().show(parentFragmentManager,"AAA")
+        }
     }
 
     override fun onCreateView(
@@ -42,6 +48,8 @@ class ProfFragment : Fragment() {
     ): View? {
         _binding = ProfFragmentBinding.inflate(inflater, container, false)
         return (binding.root)
+
+
     }
 
 
@@ -55,5 +63,7 @@ class ProfFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+
 
 }

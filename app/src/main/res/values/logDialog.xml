@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="aiueo">
-        <item>ああ</item>
-        <item>いい</item>
+        <item>登録する</item>
+        <item>今はしない</item>
     </string-array>
 </resources>

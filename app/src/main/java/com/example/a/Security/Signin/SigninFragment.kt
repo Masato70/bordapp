@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.a.R
 import com.example.a.Security.Login.LoginViewModel
 import com.example.a.databinding.LoginFragmentBinding
@@ -25,19 +26,8 @@ class SigninFragment : Fragment() {
     private lateinit var viewModel: SigninViewModel
     private lateinit var auth: FirebaseAuth
 
-    private var _binding : SigninFragmentBinding? = null
-    private val  binding get() = _binding!!
-
-    private val email = binding.email.toString()
-    private val password = binding.password.toString()
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding.signin.setOnClickListener {
-            signin()
-        }
-    }
+    private var _binding: SigninFragmentBinding? = null
+    private val binding get() = _binding!!
 
 
     override fun onCreateView(
@@ -48,6 +38,13 @@ class SigninFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.signin.setOnClickListener {
+            signin()
+        }
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(SigninViewModel::class.java)
@@ -55,12 +52,20 @@ class SigninFragment : Fragment() {
     }
 
     private fun signin() {
-        auth.createUserWithEmailAndPassword(email,password)
+        var email = binding.email.text.toString()
+        var password = binding.password.text.toString()
+
+        if(email.isNotEmpty() && password.isNotEmpty()) {
+
+        auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { ctast ->
-                if(ctast.isSuccessful) {
+                if (ctast.isSuccessful) {
                     Log.d(TAG, "アカウントを作成しました。")
                 }
             }
+        } else if(email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(context,"ああ",Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onDestroyView() {

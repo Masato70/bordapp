@@ -20,10 +20,40 @@
         android:id="@+id/profFragment"
         android:name="com.example.a.Profile.ProfFragment"
         android:label="prof_fragment"
-        tools:layout="@layout/prof_fragment" />
+        tools:layout="@layout/prof_fragment" >
+        <action
+            android:id="@+id/action_profFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.a.Search.SearchFragment"
         android:label="search_fragment"
         tools:layout="@layout/search_fragment" />
+    <fragment
+        android:id="@+id/passwordFragment"
+        android:name="com.example.a.Security.pswword.PasswordFragment"
+        android:label="password_fragment"
+        tools:layout="@layout/password_fragment" />
+    <fragment
+        android:id="@+id/signinFragment"
+        android:name="com.example.a.Security.Signin.SigninFragment"
+        android:label="SigninFragment"
+        tools:layout="@layout/signin_fragment"/>
+
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.a.Security.Login.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/login_fragment">
+        <action
+            android:id="@+id/action_loginFragment_to_signinFragment"
+            app:destination="@id/signinFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_passwordFragment"
+            app:destination="@id/passwordFragment" />
+    </fragment>
+
+
 </navigation>

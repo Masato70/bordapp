@@ -1,6 +1,7 @@
 package com.example.a.Security.Login
 
 import android.content.ContentValues.TAG
+import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
@@ -51,8 +52,14 @@ class LoginFragment : Fragment() {
         binding.login.setOnClickListener {
             login()
         }
+
         binding.forgotpassword.setOnClickListener {
             pw_forget()
+        }
+
+
+        binding.btnregister.setOnClickListener {
+            signin()
         }
 
     }
@@ -72,17 +79,22 @@ class LoginFragment : Fragment() {
                 .addOnCompleteListener { task ->
 
                     if (task.isSuccessful) {
-                        Toast.makeText(context, "ああ", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "ログインしました。", Toast.LENGTH_SHORT).show()
                         Log.d(TAG, "ログインに成功しました。")
                         findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+                    } else {
+                        Toast.makeText(context, "メールアドレスかパスワードが間違えています。", Toast.LENGTH_SHORT).show()
                     }
                 }
         }
     }
 
+    private fun signin() {
+        findNavController().navigate(R.id.action_loginFragment_to_signinFragment)
+    }
+
     private fun pw_forget() {
-            val navController = findNavController()
-            navController.navigate(R.id.action_loginFragment_to_signinFragment)
+        findNavController().navigate(R.id.action_loginFragment_to_passwordFragment)
     }
 
     override fun onDestroyView() {

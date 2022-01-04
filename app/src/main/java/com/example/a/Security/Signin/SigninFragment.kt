@@ -72,7 +72,7 @@ class SigninFragment : Fragment() {
                 }
             }
         } else if(email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(context,"違います。",Toast.LENGTH_SHORT).show()
+            Toast.makeText(context,"メールアドレスとパスワードを入力してください。",Toast.LENGTH_SHORT).show()
         }
     }
 

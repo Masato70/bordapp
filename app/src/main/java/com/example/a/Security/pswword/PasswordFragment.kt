@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.example.a.R
 import com.example.a.databinding.PasswordFragmentBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -29,7 +31,6 @@ class PasswordFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
-
     }
 
     override fun onCreateView(
@@ -40,6 +41,13 @@ class PasswordFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.btnresetting.setOnClickListener {
+            pwresetto()
+        }
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(PasswordViewModel::class.java)
@@ -47,11 +55,17 @@ class PasswordFragment : Fragment() {
     }
 
     private fun pwresetto() {
-        val Address = binding.etresettingemail.toString()
+        val Address = binding.etresettingemail.text.toString()
         Firebase.auth.sendPasswordResetEmail(Address)
-            .addOnCompleteListener { task->
-                if(task.isSuccessful) {
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
                     Log.d(TAG, "メールを送信しました。")
+                    Toast.makeText(context, "メールを送信しました。", Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(R.id.action_passwordFragment_to_loginFragment)
+                } else {
+                    Toast.makeText(context, "メールを送信しました。", Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(R.id.action_passwordFragment_to_loginFragment)
+
                 }
             }
     }

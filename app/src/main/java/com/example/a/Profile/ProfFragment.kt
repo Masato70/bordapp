@@ -1,7 +1,9 @@
 package com.example.a.Profile
 
+import android.content.ContentValues.TAG
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -26,11 +28,7 @@ class ProfFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
-        val user = Firebase.auth.currentUser
 
-        if(user == null) {
-            loginDialogFragment().show(parentFragmentManager,"AAA")
-        }
     }
 
     override fun onCreateView(
@@ -39,8 +37,19 @@ class ProfFragment : Fragment() {
     ): View? {
         _binding = ProfFragmentBinding.inflate(inflater, container, false)
         return (binding.root)
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        val user = Firebase.auth.currentUser
+
+        if(user == null) {
+            Log.d(TAG, "ああああ")
+            loginDialogFragment().show(parentFragmentManager,"AAA")
+        }else if(user != null) {
+            Log.d(TAG,"え？")
+        }
     }
 
 
@@ -50,11 +59,10 @@ class ProfFragment : Fragment() {
         // TODO: Use the ViewModel
     }
 
+
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
-
-
 }

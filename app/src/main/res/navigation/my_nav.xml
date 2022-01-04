@@ -34,12 +34,20 @@
         android:id="@+id/passwordFragment"
         android:name="com.example.a.Security.pswword.PasswordFragment"
         android:label="password_fragment"
-        tools:layout="@layout/password_fragment" />
+        tools:layout="@layout/password_fragment" >
+        <action
+            android:id="@+id/action_passwordFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
     <fragment
         android:id="@+id/signinFragment"
         android:name="com.example.a.Security.Signin.SigninFragment"
         android:label="SigninFragment"
-        tools:layout="@layout/signin_fragment"/>
+        tools:layout="@layout/signin_fragment">
+        <action
+            android:id="@+id/action_signinFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 
 
     <fragment
@@ -53,6 +61,9 @@
         <action
             android:id="@+id/action_loginFragment_to_passwordFragment"
             app:destination="@id/passwordFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 
 

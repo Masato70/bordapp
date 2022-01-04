@@ -74,6 +74,7 @@ class LoginFragment : Fragment() {
                     if (task.isSuccessful) {
                         Toast.makeText(context, "ああ", Toast.LENGTH_SHORT).show()
                         Log.d(TAG, "ログインに成功しました。")
+                        findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                     }
                 }
         }

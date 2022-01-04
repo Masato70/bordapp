@@ -10,11 +10,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.example.a.R
 import com.example.a.Security.Login.LoginViewModel
 import com.example.a.databinding.LoginFragmentBinding
 import com.example.a.databinding.SigninFragmentBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 class SigninFragment : Fragment() {
@@ -28,6 +30,11 @@ class SigninFragment : Fragment() {
 
     private var _binding: SigninFragmentBinding? = null
     private val binding get() = _binding!!
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        auth = Firebase.auth
+    }
 
 
     override fun onCreateView(
@@ -61,10 +68,11 @@ class SigninFragment : Fragment() {
             .addOnCompleteListener { ctast ->
                 if (ctast.isSuccessful) {
                     Log.d(TAG, "アカウントを作成しました。")
+                    findNavController().navigate(R.id.action_signinFragment_to_loginFragment)
                 }
             }
         } else if(email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(context,"ああ",Toast.LENGTH_SHORT).show()
+            Toast.makeText(context,"違います。",Toast.LENGTH_SHORT).show()
         }
     }
 

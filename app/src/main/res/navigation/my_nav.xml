@@ -45,8 +45,8 @@
         android:label="SigninFragment"
         tools:layout="@layout/signin_fragment">
         <action
-            android:id="@+id/action_signinFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            android:id="@+id/action_signinFragment_to_prof_createFragment"
+            app:destination="@id/prof_createFragment" />
     </fragment>
 
 
@@ -64,6 +64,15 @@
         <action
             android:id="@+id/action_loginFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/prof_createFragment"
+        android:name="com.example.a.Profile.prof_createFragment"
+        android:label="prof_create_fragment"
+        tools:layout="@layout/prof_create_fragment" >
+        <action
+            android:id="@+id/action_prof_createFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
 
 

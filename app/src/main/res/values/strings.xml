@@ -11,4 +11,6 @@
     <string name="search">検索</string>
     <string name="prof">プロフィール</string>
     <string name="welcom">ようこそ</string>
+    <string name="keep">保存</string>
+    <string name="icon"><u>アイコンを編集</u></string>
 </resources>

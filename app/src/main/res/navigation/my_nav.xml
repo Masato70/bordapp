@@ -67,7 +67,7 @@
     </fragment>
     <fragment
         android:id="@+id/prof_createFragment"
-        android:name="com.example.a.Profile.prof_createFragment"
+        android:name="com.example.a.Profile.ProfCreateFragment"
         android:label="prof_create_fragment"
         tools:layout="@layout/prof_create_fragment" >
         <action

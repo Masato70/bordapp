@@ -62,19 +62,18 @@ class SigninFragment : Fragment() {
         var email = binding.email.text.toString()
         var password = binding.password.text.toString()
 
-        if(email.isNotEmpty() && password.isNotEmpty()) {
+        if (email.isNotEmpty() && password.isNotEmpty()) {
 
-        auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener { ctast ->
-                if (ctast.isSuccessful) {
-                    Log.d(TAG, "アカウントを作成しました。")
-                    Toast.makeText(context,"アカウントを作成しました。",Toast.LENGTH_SHORT).show()
-
-                    findNavController().navigate(R.id.action_signinFragment_to_prof_createFragment)
+            auth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener { ctast ->
+                    if (ctast.isSuccessful) {
+                        Log.d(TAG, "アカウントを作成しました。")
+                        Toast.makeText(context, "アカウントを作成しました。", Toast.LENGTH_SHORT).show()
+                        findNavController().navigate(R.id.action_signinFragment_to_prof_createFragment)
+                    }
                 }
-            }
-        } else if(email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(context,"メールアドレスとパスワードを入力してください。",Toast.LENGTH_SHORT).show()
+        } else if (email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(context, "メールアドレスとパスワードを入力してください。", Toast.LENGTH_SHORT).show()
         }
     }
 

@@ -33,9 +33,7 @@ class LoginFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
-
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,7 +54,6 @@ class LoginFragment : Fragment() {
         binding.forgotpassword.setOnClickListener {
             pw_forget()
         }
-
 
         binding.btnregister.setOnClickListener {
             signin()

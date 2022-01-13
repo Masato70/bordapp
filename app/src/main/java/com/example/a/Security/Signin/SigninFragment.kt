@@ -17,6 +17,7 @@ import com.example.a.databinding.LoginFragmentBinding
 import com.example.a.databinding.SigninFragmentBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class SigninFragment : Fragment() {
@@ -63,13 +64,14 @@ class SigninFragment : Fragment() {
         var password = binding.password.text.toString()
 
         if (email.isNotEmpty() && password.isNotEmpty()) {
-
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { ctast ->
                     if (ctast.isSuccessful) {
+                        Firebase.auth.signOut()
                         Log.d(TAG, "アカウントを作成しました。")
+
                         Toast.makeText(context, "アカウントを作成しました。", Toast.LENGTH_SHORT).show()
-                        findNavController().navigate(R.id.action_signinFragment_to_prof_createFragment)
+                        findNavController().navigate(R.id.action_signinFragment_to_loginFragment)
                     }
                 }
         } else if (email.isEmpty() || password.isEmpty()) {
@@ -81,5 +83,4 @@ class SigninFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }

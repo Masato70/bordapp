@@ -22,6 +22,7 @@ import com.example.a.databinding.LoginFragmentBinding
 import com.example.a.databinding.ProfCreateFragmentBinding
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class ProfCreateFragment : Fragment() {
@@ -55,7 +56,7 @@ class ProfCreateFragment : Fragment() {
         }
 
         binding.btnkeep.setOnClickListener {
-            profileupdates()
+            profileiconupdate()
         }
     }
 
@@ -78,23 +79,41 @@ class ProfCreateFragment : Fragment() {
         launcher.launch(arrayOf("image/*"))
     }
 
-    private fun profileupdates() {
-        val user = Firebase.auth.currentUser
-        val name = binding.etname.text.toString()
+    private fun profileiconupdate() {
         val icon = binding.icon.toString()
+        val user = Firebase.auth.currentUser
+        val db = Firebase.firestore
+        val name = binding.etname.text.toString()
+        val age = binding.etage.text.toString()
+        val prof = binding.etmyprof.toString()
 
         val profileu_pdates = userProfileChangeRequest {
-            displayName = name
             photoUri = Uri.parse(icon)
         }
 
         user!!.updateProfile(profileu_pdates)
-            .addOnCompleteListener { tast->
-                if(tast.isSuccessful) {
-                    Log.d(TAG, "プロフィール更新")
-                    findNavController().navigate(R.id.action_profFragment_to_loginFragment)
+            .addOnCompleteListener { tast ->
+                if (tast.isSuccessful) {
+                    Log.d(TAG, "アイコン更新")
                 }
             }
-    }
+        user?.let {
+            val uid = user.uid
 
+            val update = hashMapOf(
+                "名前" to name,
+                "年齢" to age,
+                "自己紹介" to prof
+            )
+
+            db.collection("users").document(uid)
+                .set(update)
+                .addOnSuccessListener {
+                    Log.d(TAG, "プロフィールを保存しました。")
+                    Firebase.auth.signOut()
+                    findNavController().navigate(R.id.action_profFragment_to_loginFragment)
+                }
+                .addOnFailureListener { e -> Log.w(TAG, "エラーです。プロフィールを保存できていません。", e) }
+        }
+    }
 }

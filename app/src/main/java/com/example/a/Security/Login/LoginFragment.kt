@@ -16,6 +16,7 @@ import com.example.a.R
 import com.example.a.databinding.LoginFragmentBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class LoginFragment : Fragment() {

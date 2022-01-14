@@ -67,11 +67,9 @@ class SigninFragment : Fragment() {
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener { ctast ->
                     if (ctast.isSuccessful) {
-                        Firebase.auth.signOut()
                         Log.d(TAG, "アカウントを作成しました。")
-
                         Toast.makeText(context, "アカウントを作成しました。", Toast.LENGTH_SHORT).show()
-                        findNavController().navigate(R.id.action_signinFragment_to_loginFragment)
+                        findNavController().navigate(R.id.action_signinFragment_to_prof_createFragment)
                     }
                 }
         } else if (email.isEmpty() || password.isEmpty()) {

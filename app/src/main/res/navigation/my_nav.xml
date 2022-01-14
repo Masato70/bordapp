@@ -15,9 +15,6 @@
         <action
             android:id="@+id/action_homeFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_prof_createFragment"
-            app:destination="@id/prof_createFragment" />
     </fragment>
     <fragment
         android:id="@+id/profFragment"
@@ -48,8 +45,8 @@
         android:label="SigninFragment"
         tools:layout="@layout/signin_fragment">
         <action
-            android:id="@+id/action_signinFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            android:id="@+id/action_signinFragment_to_prof_createFragment"
+            app:destination="@id/prof_createFragment" />
     </fragment>
 
 
@@ -72,7 +69,11 @@
         android:id="@+id/prof_createFragment"
         android:name="com.example.a.Profile.ProfCreateFragment"
         android:label="prof_create_fragment"
-        tools:layout="@layout/prof_create_fragment" />
+        tools:layout="@layout/prof_create_fragment" >
+        <action
+            android:id="@+id/action_prof_createFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 
 
 </navigation>

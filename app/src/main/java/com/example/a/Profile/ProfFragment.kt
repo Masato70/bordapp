@@ -45,9 +45,9 @@ class ProfFragment : Fragment() {
         val user = Firebase.auth.currentUser
 
         if(user == null) {
-            Log.d(TAG, "ダイアログを表示")
-            loginDialogFragment().show(parentFragmentManager,"AAA")
-        }else if(user != null) {
+            Log.d(TAG, "ダイアログを表示しました。")
+            loginDialogFragment().show(parentFragmentManager,"loginDialog")
+        }else {
             Log.d(TAG,"ログインされています。")
         }
     }

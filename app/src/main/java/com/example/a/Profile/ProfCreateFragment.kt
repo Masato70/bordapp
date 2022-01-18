@@ -35,11 +35,6 @@ class ProfCreateFragment : Fragment() {
     private var _binding: ProfCreateFragmentBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -85,7 +80,7 @@ class ProfCreateFragment : Fragment() {
         val db = Firebase.firestore
         val name = binding.etname.text.toString()
         val age = binding.etage.text.toString()
-        val prof = binding.etmyprof.toString()
+        val prof = binding.etmyprof.text.toString()
 
         val profileu_pdates = userProfileChangeRequest {
             photoUri = Uri.parse(icon)
@@ -97,6 +92,7 @@ class ProfCreateFragment : Fragment() {
                     Log.d(TAG, "アイコン更新")
                 }
             }
+
         user?.let {
             val uid = user.uid
 
@@ -111,7 +107,7 @@ class ProfCreateFragment : Fragment() {
                 .addOnSuccessListener {
                     Log.d(TAG, "プロフィールを保存しました。")
                     Firebase.auth.signOut()
-                    findNavController().navigate(R.id.action_profFragment_to_loginFragment)
+                    findNavController().navigate(R.id.action_prof_createFragment_to_loginFragment)
                 }
                 .addOnFailureListener { e -> Log.w(TAG, "エラーです。プロフィールを保存できていません。", e) }
         }

@@ -18,7 +18,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.fragment.findNavController
 import com.example.a.Profile.ProfCreateViewModel
 import com.example.a.R
-import com.example.a.databinding.LoginFragmentBinding
 import com.example.a.databinding.ProfCreateFragmentBinding
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest

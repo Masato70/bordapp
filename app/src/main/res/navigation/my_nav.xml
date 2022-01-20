@@ -24,6 +24,9 @@
         <action
             android:id="@+id/action_profFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_profFragment_to_prof_ChangeFragment"
+            app:destination="@id/prof_ChangeFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -73,6 +76,15 @@
         <action
             android:id="@+id/action_prof_createFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/prof_ChangeFragment"
+        android:name="com.example.a.Prof_ChangeFragment"
+        android:label="prof__change_fragment"
+        tools:layout="@layout/prof__change_fragment" >
+        <action
+            android:id="@+id/action_prof_ChangeFragment_to_profFragment"
+            app:destination="@id/profFragment" />
     </fragment>
 
 

@@ -1,6 +1,7 @@
 package com.example.a.Profile
 
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.net.Uri
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -18,6 +19,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import com.google.protobuf.Empty
 import de.hdodenhof.circleimageview.CircleImageView
 
 class ProfFragment : Fragment() {
@@ -31,10 +33,10 @@ class ProfFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var auth: FirebaseAuth
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
-
     }
 
     override fun onCreateView(
@@ -47,21 +49,47 @@ class ProfFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        dialog()
+        Log.d(TAG, "ああ。")
 
-        binding.btnchange.setOnClickListener {
-            if (auth == null) {
-                findNavController().navigate(R.id.action_profFragment_to_loginFragment)
-            } else if (auth != null) {
-                profchange()
-            }
-        }
+        dialog()
+        profshow()
+        profchange()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(ProfViewModel::class.java)
         // TODO: Use the ViewModel
+    }
+
+    private fun profshow() {
+        val user = Firebase.auth.currentUser
+
+        user?.let {
+            val uid = user.uid
+            val db = Firebase.firestore
+
+            //アイコン取得
+            val photoUrl = user.photoUrl
+            binding.icon.setImageURI(photoUrl)
+
+            //プロフィール取得(名前、年齢、自己紹介)
+            val docRef = db.collection("users").document(uid)
+            docRef.get()
+                .addOnSuccessListener { document ->
+                    if (document != null) {
+                        binding.tvname.text = document.data!!["name"].toString()
+                        binding.tvage.text = document.data!!["age"].toString()
+                        binding.tvprof.text = document.data!!["profile"].toString()
+                    } else {
+                        Log.d(TAG, "No such document")
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.d(TAG, "get failed with ", exception)
+                }
+
+        }
     }
 
     private fun dialog() {
@@ -77,19 +105,17 @@ class ProfFragment : Fragment() {
     }
 
     private fun profchange() {
-        val user = Firebase.auth.currentUser
 
-        user?.let {
-            val uid = user.uid
-            val db = Firebase.firestore
-
-            //アイコン取得
-            val photoUrl = user.photoUrl
-            binding.icon.setImageURI(photoUrl)
-
-            //プロフィール取得(名前、年齢、自己紹介)
-
+        binding.btnchange.setOnClickListener {
+            //ログインしていなかったらログイン画面に繊維
+            if (auth == null) {
+                findNavController().navigate(R.id.action_profFragment_to_loginFragment)
+                //ログインしていたらプロフィール設定画面に遷移
+            } else if (auth != null) {
+                findNavController().navigate(R.id.action_profFragment_to_prof_ChangeFragment)
+            }
         }
+
     }
 
     override fun onDestroyView() {
@@ -97,4 +123,5 @@ class ProfFragment : Fragment() {
         _binding = null
     }
 }
+
 

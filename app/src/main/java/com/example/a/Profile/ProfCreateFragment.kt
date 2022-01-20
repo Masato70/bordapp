@@ -88,7 +88,13 @@ class ProfCreateFragment : Fragment() {
         user!!.updateProfile(profileu_pdates)
             .addOnCompleteListener { tast ->
                 if (tast.isSuccessful) {
-                    Log.d(TAG, "アイコン更新")
+
+                    if (profileu_pdates == null) {
+                        Log.d(TAG, "アイコン更新")
+                    } else if(profileu_pdates != null) {
+                        Log.d(TAG, "w")
+
+                    }
                 }
             }
 
@@ -96,9 +102,9 @@ class ProfCreateFragment : Fragment() {
             val uid = user.uid
 
             val update = hashMapOf(
-                "名前" to name,
-                "年齢" to age,
-                "自己紹介" to prof
+                "name" to name,
+                "age" to age,
+                "profile" to prof
             )
 
             db.collection("users").document(uid)

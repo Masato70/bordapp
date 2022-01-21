@@ -80,6 +80,9 @@ class ProfCreateFragment : Fragment() {
         val name = binding.etname.text.toString()
         val age = binding.etage.text.toString()
         val prof = binding.etmyprof.text.toString()
+        val nameempty = binding.tvnameempty.text.toString()
+        val ageempty = binding.tvageempty.text.toString()
+        val profempty = binding.tvmyprofempty.text.toString()
 
         val profileu_pdates = userProfileChangeRequest {
             photoUri = Uri.parse(icon)
@@ -91,30 +94,35 @@ class ProfCreateFragment : Fragment() {
 
                     if (profileu_pdates == null) {
                         Log.d(TAG, "アイコン更新")
-                    } else if(profileu_pdates != null) {
+                    } else if (profileu_pdates != null) {
                         Log.d(TAG, "w")
 
                     }
                 }
             }
 
-        user?.let {
-            val uid = user.uid
+        if (name.isNotEmpty() && age.isNotEmpty() && prof.isNotEmpty()) {
 
-            val update = hashMapOf(
-                "name" to name,
-                "age" to age,
-                "profile" to prof
-            )
+            user?.let {
+                val uid = user.uid
 
-            db.collection("users").document(uid)
-                .set(update)
-                .addOnSuccessListener {
-                    Log.d(TAG, "プロフィールを保存しました。")
-                    Firebase.auth.signOut()
-                    findNavController().navigate(R.id.action_prof_createFragment_to_loginFragment)
-                }
-                .addOnFailureListener { e -> Log.w(TAG, "エラーです。プロフィールを保存できていません。", e) }
+                val update = hashMapOf(
+                    "name" to name,
+                    "age" to age,
+                    "profile" to prof
+                )
+
+                db.collection("users").document(uid)
+                    .set(update)
+                    .addOnSuccessListener {
+                        Log.d(TAG, "プロフィールを保存しました。")
+                        Firebase.auth.signOut()
+                        findNavController().navigate(R.id.action_prof_createFragment_to_loginFragment)
+                    }
+                    .addOnFailureListener { e ->
+                        Log.w(TAG, "エラーです。プロフィールを保存できていません。", e)
+                    }
+            }
         }
     }
 }

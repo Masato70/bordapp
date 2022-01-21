@@ -33,7 +33,8 @@ class Prof_ChangeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = ProfChangeFragmentBinding.inflate(inflater, container, false)
-        return binding.root    }
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -71,10 +72,10 @@ class Prof_ChangeFragment : Fragment() {
             val docRef = db.collection("users").document(uid)
 
             docRef.get()
-                .addOnSuccessListener { document->
-                    if(document != null) {
+                .addOnSuccessListener { document ->
+                    if (document != null) {
                         profupdate()
-                    } else if(document == null) {
+                    } else {
                         profcreate()
                     }
                 }
@@ -112,13 +113,23 @@ class Prof_ChangeFragment : Fragment() {
                 "profile" to prof
             )
 
-            db.collection("users").document(uid)
-                .set(create)
-                .addOnSuccessListener {
-                    Log.d(ContentValues.TAG, "プロフィールを保存しました。")
-                    findNavController().navigate(R.id.action_prof_ChangeFragment_to_profFragment)
-                }
-                .addOnFailureListener { e -> Log.w(ContentValues.TAG, "エラーです。プロフィールを保存できていません。", e) }
+
+            if (name.isNotEmpty() && age.isNotEmpty() && prof.isNotEmpty()) {
+
+
+                db.collection("users").document(uid)
+                    .set(create)
+                    .addOnSuccessListener {
+                        Log.d(ContentValues.TAG, "プロフィールを保存しました。")
+                        findNavController().navigate(R.id.action_prof_ChangeFragment_to_profFragment)
+                    }
+                    .addOnFailureListener { e ->
+                        Log.w(
+                            ContentValues.TAG,
+                            "エラーです。プロフィールを保存できていません。", e
+                        )
+                    }
+            }
         }
     }
 
@@ -145,15 +156,17 @@ class Prof_ChangeFragment : Fragment() {
             val prof_update = db.collection("users").document(uid)
 
             prof_update
-                .update(mapOf(
-                    "name" to name,
-                    "age" to age,
-                    "profile" to prof
-                ))
+                .update(
+                    mapOf(
+                        "name" to name,
+                        "age" to age,
+                        "profile" to prof
+                    )
+                )
+
                 .addOnSuccessListener {
                     findNavController().navigate(R.id.action_prof_ChangeFragment_to_profFragment)
                 }
-
         }
     }
 

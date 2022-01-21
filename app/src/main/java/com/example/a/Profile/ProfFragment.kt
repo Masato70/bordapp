@@ -53,7 +53,11 @@ class ProfFragment : Fragment() {
 
         dialog()
         profshow()
-        profchange()
+
+        binding.btnchange.setOnClickListener {
+            profchange()
+
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -62,17 +66,20 @@ class ProfFragment : Fragment() {
         // TODO: Use the ViewModel
     }
 
+    //データ読み込み
     private fun profshow() {
         val user = Firebase.auth.currentUser
 
+        //アイコン取得
         user?.let {
+            for (profile in it.providerData) {
+                val photoUrl = profile.photoUrl
+                binding.icon.setImageURI(photoUrl)
+            }
+
+
             val uid = user.uid
             val db = Firebase.firestore
-
-            //アイコン取得
-            val photoUrl = user.photoUrl
-            binding.icon.setImageURI(photoUrl)
-
             //プロフィール取得(名前、年齢、自己紹介)
             val docRef = db.collection("users").document(uid)
             docRef.get()
@@ -88,10 +95,10 @@ class ProfFragment : Fragment() {
                 .addOnFailureListener { exception ->
                     Log.d(TAG, "get failed with ", exception)
                 }
-
         }
     }
 
+    //ダイアログ表示
     private fun dialog() {
         val user = Firebase.auth.currentUser
 
@@ -104,18 +111,15 @@ class ProfFragment : Fragment() {
         }
     }
 
+    //プロフィール変更ボタンを押した時の動作
     private fun profchange() {
 
-        binding.btnchange.setOnClickListener {
-            //ログインしていなかったらログイン画面に繊維
-            if (auth == null) {
-                findNavController().navigate(R.id.action_profFragment_to_loginFragment)
-                //ログインしていたらプロフィール設定画面に遷移
-            } else if (auth != null) {
-                findNavController().navigate(R.id.action_profFragment_to_prof_ChangeFragment)
-            }
+        //ログインしていなかったらログイン画面に繊維
+        if (auth != null) {
+            findNavController().navigate(R.id.action_profFragment_to_prof_ChangeFragment)
+        } else {
+            findNavController().navigate(R.id.action_profFragment_to_loginFragment)
         }
-
     }
 
     override fun onDestroyView() {

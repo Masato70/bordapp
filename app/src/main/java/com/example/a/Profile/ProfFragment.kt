@@ -56,7 +56,6 @@ class ProfFragment : Fragment() {
 
         binding.btnchange.setOnClickListener {
             profchange()
-
         }
     }
 
@@ -71,25 +70,40 @@ class ProfFragment : Fragment() {
         val user = Firebase.auth.currentUser
 
         //アイコン取得
-        user?.let {
-            for (profile in it.providerData) {
-                val photoUrl = profile.photoUrl
-                binding.icon.setImageURI(photoUrl)
+
+        val auth = FirebaseAuth.getInstance()
+        auth.currentUser?.apply {
+            for (userInfo in providerData) {
+                    val photoUrl = userInfo.photoUrl
+                    Log.d("TAG", photoUrl.toString())
             }
 
 
-            val uid = user.uid
-            val db = Firebase.firestore
+//        user?.let {
+//            for (profile in it.providerData) {
+//                val photoUrl = profile.photoUrl
+//                binding.icon.setImageURI(photoUrl)
+//                Log.d(TAG, profile.toString())
+//            }
+
+
             //プロフィール取得(名前、年齢、自己紹介)
+            val uid = user!!.uid
+            val db = Firebase.firestore
             val docRef = db.collection("users").document(uid)
             docRef.get()
                 .addOnSuccessListener { document ->
                     if (document != null) {
+
+                        Log.d(TAG, "${document?.data}")
                         binding.tvname.text = document.data!!["name"].toString()
                         binding.tvage.text = document.data!!["age"].toString()
                         binding.tvprof.text = document.data!!["profile"].toString()
+
                     } else {
-                        Log.d(TAG, "No such document")
+                        binding.tvname.text = "未設定"
+                        binding.tvage.text = "未設定"
+                        binding.tvprof.text = "未設定"
                     }
                 }
                 .addOnFailureListener { exception ->
@@ -114,11 +128,14 @@ class ProfFragment : Fragment() {
     //プロフィール変更ボタンを押した時の動作
     private fun profchange() {
 
+        val user = Firebase.auth.currentUser
         //ログインしていなかったらログイン画面に繊維
-        if (auth != null) {
-            findNavController().navigate(R.id.action_profFragment_to_prof_ChangeFragment)
-        } else {
+        if (user == null) {
+            Log.d(TAG, "ログインされていません")
             findNavController().navigate(R.id.action_profFragment_to_loginFragment)
+        } else {
+            Log.d(TAG, "ログインしています")
+            findNavController().navigate(R.id.action_profFragment_to_prof_ChangeFragment)
         }
     }
 

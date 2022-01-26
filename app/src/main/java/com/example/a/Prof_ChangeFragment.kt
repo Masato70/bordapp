@@ -13,6 +13,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.fragment.findNavController
 import com.example.a.databinding.ProfChangeFragmentBinding
 import com.example.a.databinding.ProfCreateFragmentBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.firestore.ktx.firestore
@@ -27,6 +28,17 @@ class Prof_ChangeFragment : Fragment() {
     private lateinit var viewModel: ProfChangeViewModel
     private var _binding: ProfChangeFragmentBinding? = null
     private val binding get() = _binding!!
+    private lateinit var auth: FirebaseAuth
+    private val RegisterTheIcon =
+        registerForActivityResult(ActivityResultContracts.OpenDocument()) {
+            binding.icon.setImageURI(it)
+        }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        auth = Firebase.auth
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,12 +66,9 @@ class Prof_ChangeFragment : Fragment() {
         // TODO: Use the ViewModel
     }
 
-    private val launcher = registerForActivityResult(ActivityResultContracts.OpenDocument()) {
-        binding.icon.setImageURI(it)
-    }
 
     private fun selectPhoto() {
-        launcher.launch(arrayOf("image/*"))
+        RegisterTheIcon.launch(arrayOf("image/*"))
     }
 
 
@@ -79,11 +88,8 @@ class Prof_ChangeFragment : Fragment() {
                         profcreate()
                     }
                 }
-
         }
-
     }
-
 
     private fun profcreate() {
         val icon = binding.icon.toString()
@@ -113,9 +119,7 @@ class Prof_ChangeFragment : Fragment() {
                 "profile" to prof
             )
 
-
             if (name.isNotEmpty() && age.isNotEmpty() && prof.isNotEmpty()) {
-
 
                 db.collection("users").document(uid)
                     .set(create)
@@ -148,7 +152,7 @@ class Prof_ChangeFragment : Fragment() {
         user!!.updateProfile(profileu_pdates)
             .addOnCompleteListener { tast ->
                 if (tast.isSuccessful) {
-                    Log.d(ContentValues.TAG, "アイコン更新")
+                        Log.d(ContentValues.TAG, "アイコン更新しました")
                 }
             }
         user?.let {

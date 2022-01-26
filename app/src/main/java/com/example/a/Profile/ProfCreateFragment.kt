@@ -91,13 +91,7 @@ class ProfCreateFragment : Fragment() {
         user!!.updateProfile(profileu_pdates)
             .addOnCompleteListener { tast ->
                 if (tast.isSuccessful) {
-
-                    if (profileu_pdates == null) {
-                        Log.d(TAG, "アイコン更新")
-                    } else if (profileu_pdates != null) {
-                        Log.d(TAG, "w")
-
-                    }
+                    Log.d(TAG, "アイコン更新しました")
                 }
             }
 

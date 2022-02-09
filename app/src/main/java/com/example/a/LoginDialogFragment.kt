@@ -7,10 +7,10 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.DialogFragment
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import com.example.a.R
 
-class loginDialogFragment: DialogFragment() {
+class LoginDialogFragment: DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 

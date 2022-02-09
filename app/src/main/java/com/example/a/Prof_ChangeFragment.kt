@@ -1,6 +1,9 @@
 package com.example.a
 
 import android.content.ContentValues
+import android.content.ContentValues.TAG
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -18,6 +21,12 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileInputStream
+import java.util.*
 
 class Prof_ChangeFragment : Fragment() {
 
@@ -33,10 +42,13 @@ class Prof_ChangeFragment : Fragment() {
         registerForActivityResult(ActivityResultContracts.OpenDocument()) {
             binding.icon.setImageURI(it)
         }
+    lateinit var storage: FirebaseStorage
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
+        storage = Firebase.storage
     }
 
 
@@ -92,23 +104,27 @@ class Prof_ChangeFragment : Fragment() {
     }
 
     private fun profcreate() {
-        val icon = binding.icon.toString()
         val user = Firebase.auth.currentUser
         val db = Firebase.firestore
+        val storageRef = storage.reference
         val name = binding.etname.text.toString()
         val age = binding.etage.text.toString()
         val prof = binding.etmyprof.text.toString()
 
-        val profileu_pdates = userProfileChangeRequest {
-            photoUri = Uri.parse(icon)
-        }
+//        val file = Uri.fromFile(File("path/to/images/rivers.jpg"))
+//        val riversRef = storageRef.child("images/${binding.icon}")
+//        riversRef.putFile(file)
 
-        user!!.updateProfile(profileu_pdates)
-            .addOnCompleteListener { tast ->
-                if (tast.isSuccessful) {
-                    Log.d(ContentValues.TAG, "アイコン更新")
-                }
-            }
+//            .addOnSuccessListener {
+//                Log.d(TAG, "アイコンを保存しました。")
+//            }
+//
+//            .addOnFailureListener {
+//                Log.d(TAG, "アイコン保存に失敗しました。")
+//            }
+
+
+
 
         user?.let {
             val uid = user.uid
@@ -120,7 +136,6 @@ class Prof_ChangeFragment : Fragment() {
             )
 
             if (name.isNotEmpty() && age.isNotEmpty() && prof.isNotEmpty()) {
-
                 db.collection("users").document(uid)
                     .set(create)
                     .addOnSuccessListener {
@@ -141,20 +156,24 @@ class Prof_ChangeFragment : Fragment() {
         val icon = binding.icon.toString()
         val user = Firebase.auth.currentUser
         val db = Firebase.firestore
+        val storageRef = storage.reference
         val name = binding.etname.text.toString()
         val age = binding.etage.text.toString()
         val prof = binding.etmyprof.text.toString()
 
-        val profileu_pdates = userProfileChangeRequest {
-            photoUri = Uri.parse(icon)
-        }
 
-        user!!.updateProfile(profileu_pdates)
-            .addOnCompleteListener { tast ->
-                if (tast.isSuccessful) {
-                        Log.d(ContentValues.TAG, "アイコン更新しました")
-                }
-            }
+//        val fileName = UUID.randomUUID().toString() + ".jpg"
+//        val riversRef = FirebaseStorage.getInstance().reference.child("/images/$fileName")
+//
+//
+//
+//        riversRef.putFile("${binding.icon})
+//            .addOnSuccessListener {
+//                Log.d(TAG, "アイコンを保存しました。")
+//            }
+
+
+
         user?.let {
             val uid = user.uid
             val prof_update = db.collection("users").document(uid)
@@ -173,7 +192,6 @@ class Prof_ChangeFragment : Fragment() {
                 }
         }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

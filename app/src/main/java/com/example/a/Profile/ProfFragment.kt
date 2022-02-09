@@ -1,8 +1,6 @@
 package com.example.a.Profile
 
 import android.content.ContentValues.TAG
-import android.content.Context
-import android.net.Uri
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
@@ -13,14 +11,11 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.a.R
 import com.example.a.databinding.ProfFragmentBinding
-import com.example.a.loginDialogFragment
+import com.example.a.LoginDialogFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
-import com.google.protobuf.Empty
-import de.hdodenhof.circleimageview.CircleImageView
 
 class ProfFragment : Fragment() {
 
@@ -49,7 +44,6 @@ class ProfFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d(TAG, "ああ。")
 
         dialog()
         profshow()
@@ -69,45 +63,22 @@ class ProfFragment : Fragment() {
     private fun profshow() {
         val user = Firebase.auth.currentUser
 
-        //アイコン取得
+        //プロフィール取得(名前、年齢、自己紹介)
+        val db = Firebase.firestore
+        val uid = user?.uid
+        val docRef = db.collection("users").document(uid.toString())
 
-        val auth = FirebaseAuth.getInstance()
-        auth.currentUser?.apply {
-            for (userInfo in providerData) {
-                    val photoUrl = userInfo.photoUrl
-                    Log.d("TAG", photoUrl.toString())
-            }
-
-
-//        user?.let {
-//            for (profile in it.providerData) {
-//                val photoUrl = profile.photoUrl
-//                binding.icon.setImageURI(photoUrl)
-//                Log.d(TAG, profile.toString())
-//            }
-
-
-            //プロフィール取得(名前、年齢、自己紹介)
-            val uid = user!!.uid
-            val db = Firebase.firestore
-            val docRef = db.collection("users").document(uid)
+        //ログインしていたらプロフィール取得する
+        if (user != null) {
             docRef.get()
                 .addOnSuccessListener { document ->
-                    if (document != null) {
 
-                        Log.d(TAG, "${document?.data}")
+                    if (document != null) {
+                        Log.d(TAG, "ドキュメントデータ: ${document.data}")
                         binding.tvname.text = document.data!!["name"].toString()
                         binding.tvage.text = document.data!!["age"].toString()
                         binding.tvprof.text = document.data!!["profile"].toString()
-
-                    } else {
-                        binding.tvname.text = "未設定"
-                        binding.tvage.text = "未設定"
-                        binding.tvprof.text = "未設定"
                     }
-                }
-                .addOnFailureListener { exception ->
-                    Log.d(TAG, "get failed with ", exception)
                 }
         }
     }
@@ -119,7 +90,7 @@ class ProfFragment : Fragment() {
         //ログインしていなかったらログインを促すダイアログ表示
         if (user == null) {
             Log.d(TAG, "ダイアログを表示しました。")
-            loginDialogFragment().show(parentFragmentManager, "loginDialog")
+            LoginDialogFragment().show(parentFragmentManager, "loginDialog")
         } else {
             Log.d(TAG, "ログインされています。")
         }

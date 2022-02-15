@@ -80,9 +80,6 @@ class ProfCreateFragment : Fragment() {
         val name = binding.etname.text.toString()
         val age = binding.etage.text.toString()
         val prof = binding.etmyprof.text.toString()
-        val nameempty = binding.tvnameempty.text.toString()
-        val ageempty = binding.tvageempty.text.toString()
-        val profempty = binding.tvmyprofempty.text.toString()
 
         val profileu_pdates = userProfileChangeRequest {
             photoUri = Uri.parse(icon)

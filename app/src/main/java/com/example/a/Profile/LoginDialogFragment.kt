@@ -1,4 +1,4 @@
-package com.example.a
+package com.example.a.Profile
 
 import android.app.AlertDialog
 import android.app.Dialog

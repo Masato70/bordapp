@@ -1,7 +1,7 @@
-package com.example.a.Post
+package com.example.a.Profile
 
 import androidx.lifecycle.ViewModel
 
-class PostScreenViewModel : ViewModel() {
+class ProfChangeViewModel : ViewModel() {
     // TODO: Implement the ViewModel
 }

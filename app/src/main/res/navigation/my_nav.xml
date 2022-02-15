@@ -79,7 +79,7 @@
     </fragment>
     <fragment
         android:id="@+id/prof_ChangeFragment"
-        android:name="com.example.a.Prof_ChangeFragment"
+        android:name="com.example.a.Profile.Prof_ChangeFragment"
         android:label="prof__change_fragment"
         tools:layout="@layout/prof__change_fragment" >
         <action

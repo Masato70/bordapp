@@ -7,18 +7,19 @@
     android:paddingLeft="20dp"
     android:paddingTop="20dp"
     android:paddingRight="20dp"
-    tools:context=".Post.PostScreenFragment">
+    tools:context=".Post.PostScreenActivity">
 
     <LinearLayout
         android:id="@+id/PostcontentSelection"
         android:layout_width="match_parent"
-        android:layout_height="3５dp"
+        android:layout_height="35dp"
         android:orientation="horizontal"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/btncancel"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -31,10 +32,11 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="" />
+            style="?android:attr/borderlessButtonStyle" />
 
 
         <Button
+            android:id="@+id/btnpost"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -46,19 +48,33 @@
 
     </LinearLayout>
 
-
     <EditText
+        android:id="@+id/etTitle"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="15dp"
-        android:paddingTop="5dp"
         android:hint="タイトル"
+        android:inputType="text"
         android:textSize="24sp"
         android:textStyle="bold"
+        android:maxLength="20"
         android:textColor="@color/black"
         android:background="@drawable/login_et"
         android:padding="5dp"
         app:layout_constraintTop_toBottomOf="@+id/PostcontentSelection" />
 
+    <EditText
+        android:id="@+id/etdetails"
+        android:layout_width="match_parent"
+        android:layout_height="550dp"
+        android:layout_marginTop="5dp"
+        android:hint="詳細"
+        android:isScrollContainer="true"
+        android:background="@drawable/login_et"
+        android:padding="15dp"
+        android:gravity="top"
+        app:layout_constraintTop_toBottomOf="@+id/etTitle"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

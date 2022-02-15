@@ -56,16 +56,6 @@
         app:layout_constraintTop_toBottomOf="@+id/btngallery"
         app:layout_constraintLeft_toRightOf="@id/textView2"/>
 
-    <TextView
-        android:id="@+id/tvnameempty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="10sp"
-        android:layout_marginTop="5dp"
-        android:textColor="#ED1A3D"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etname" />
 
     <TextView
         android:id="@+id/tvage"
@@ -92,16 +82,6 @@
         app:layout_constraintLeft_toRightOf="@+id/tvage"
         app:layout_constraintTop_toBottomOf="@id/etname" />
 
-    <TextView
-        android:id="@+id/tvageempty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="10sp"
-        android:layout_marginTop="5dp"
-        android:textColor="#ED1A3D"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etage" />
 
     <TextView
         android:id="@+id/tvmyprof"
@@ -128,16 +108,6 @@
         app:layout_constraintTop_toBottomOf="@id/tvmyprof"
         app:layout_constraintLeft_toLeftOf="parent"/>
 
-    <TextView
-        android:id="@+id/tvmyprofempty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="10sp"
-        android:layout_marginBottom="5dp"
-        android:textColor="#ED1A3D"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/etmyprof"/>
 
     <Button
         android:id="@+id/btnkeep"

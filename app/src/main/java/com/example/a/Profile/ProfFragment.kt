@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.a.R
 import com.example.a.databinding.ProfFragmentBinding
-import com.example.a.LoginDialogFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore

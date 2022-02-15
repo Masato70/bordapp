@@ -1,10 +1,6 @@
-package com.example.a
+package com.example.a.Profile
 
 import android.content.ContentValues
-import android.content.ContentValues.TAG
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
-import android.net.Uri
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
@@ -14,19 +10,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.fragment.findNavController
+import com.example.a.R
 import com.example.a.databinding.ProfChangeFragmentBinding
-import com.example.a.databinding.ProfCreateFragmentBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
-import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.FileInputStream
-import java.util.*
 
 class Prof_ChangeFragment : Fragment() {
 

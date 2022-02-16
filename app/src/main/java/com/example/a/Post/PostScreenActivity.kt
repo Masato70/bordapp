@@ -1,8 +1,12 @@
 package com.example.a.Post
 
+import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import com.example.a.Home.HomeFragment
 import com.example.a.MainActivity
 import com.example.a.databinding.ActivityPostScreenBinding
@@ -19,6 +23,7 @@ class PostScreenActivity : AppCompatActivity() {
         binding = ActivityPostScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.btncancel.setOnClickListener { startActivity(Intent(this, MainActivity::class.java)) }
+        binding.btnpost.setOnClickListener { Adddata() }
     }
 
     private fun Adddata() {
@@ -27,11 +32,11 @@ class PostScreenActivity : AppCompatActivity() {
         val user = Firebase.auth.currentUser
         val uid = user!!.uid
 
-        val docData: HashMap<String, Number> = hashMapOf(
+        val docData: HashMap<String, Any> = hashMapOf(
             "numberExample" to 3.14159265
         )
 
-        val nestedData: HashMap<String, String> = hashMapOf(
+        val nestedData: HashMap<String, Any> = hashMapOf(
             "Title" to binding.etTitle.text.toString(),
             "details" to binding.etdetails.text.toString()
         )
@@ -39,9 +44,17 @@ class PostScreenActivity : AppCompatActivity() {
         docData["objectExample"] = nestedData
 
         db.collection("users").document(uid)
-            .collection("post").document("aa")
+            .collection("user posts").document("Post")
             .set(nestedData)
-            .addOnSuccessListener {  }
+            .addOnSuccessListener {
+                Log.d(TAG, "データ保存")
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            }
+            .addOnFailureListener {
+                Log.d(TAG, "データ保存失敗")
+                Toast.makeText(this, "失敗", Toast.LENGTH_SHORT).show()
+            }
     }
 
 }

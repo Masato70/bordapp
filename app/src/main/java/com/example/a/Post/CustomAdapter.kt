@@ -36,13 +36,11 @@ class CustomAdapter(private val postlist: ArrayList<Post>) :
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val post = postlist[position]
 
-        viewHolder.title
-
-
+        viewHolder.icon.setImageResource(post.icon)
+        viewHolder.title.text = post.title
+        viewHolder.post.text = post.detail
     }
 
     //表示数を返す
-    override fun getItemCount(): Int {
-        TODO("Not yet implemented")
-    }
+    override fun getItemCount(): Int = postlist.size
 }

@@ -35,12 +35,18 @@ class PostScreenActivity : AppCompatActivity() {
         val user = Firebase.auth.currentUser
         val uid = user!!.uid
 
+//        val docData: HashMap<String, Any> = hashMapOf(
+//            "numberExample" to 3.14159265
+//        )
+
         val nestedData: HashMap<String, Any> = hashMapOf(
             "Title" to binding.etTitle.text.toString(),
             "details" to binding.etdetails.text.toString(),
             "date" to Timestamp(Date())
 
         )
+
+//        docData["objectExample"] = nestedData
 
         db.collection("users").document(uid)
             .collection("user posts").document("Post")

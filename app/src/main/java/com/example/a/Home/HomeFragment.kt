@@ -1,17 +1,19 @@
 package com.example.a.Home
 
-import android.content.Context
+import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.a.Post.CustomAdapter
 import com.example.a.Post.PostScreenActivity
 import com.example.a.R
 import com.example.a.databinding.HomeFragmentBinding
@@ -36,15 +38,33 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding =HomeFragmentBinding.inflate(inflater, container, false)
+        _binding = HomeFragmentBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.btnpostsc.setOnClickListener { startActivity(Intent(context, PostScreenActivity::class.java)) }
+        binding.btnpostsc.setOnClickListener {
+            startActivity(
+                Intent(
+                    context,
+                    PostScreenActivity::class.java
+                )
+            )
+        }
+
+        val db = Firebase.firestore
+        val user = Firebase.auth.currentUser
+        val uid = user!!.uid
+
+        val citiesRef = db.collection("users").document(uid).collection("UserPosts")
+        citiesRef.orderBy("createdDay")
+        citiesRef.get()
+            .addOnSuccessListener { Log.d(TAG, "読み取り成功") }
+            .addOnFailureListener { Log.d(TAG, "読み取り失敗") }
     }
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

@@ -25,7 +25,14 @@ class PostScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityPostScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.btncancel.setOnClickListener { startActivity(Intent(this, MainActivity::class.java)) }
+        binding.btncancel.setOnClickListener {
+            startActivity(
+                Intent(
+                    this,
+                    MainActivity::class.java
+                )
+            )
+        }
         binding.btnpost.setOnClickListener { Adddata() }
     }
 
@@ -48,8 +55,7 @@ class PostScreenActivity : AppCompatActivity() {
 
 //        docData["objectExample"] = nestedData
 
-        db.collection("users").document(uid)
-            .collection("user posts").document("Post")
+        db.collection("users").document(uid).collection("UserPosts").document()
             .set(nestedData)
             .addOnSuccessListener {
                 Log.d(TAG, "データ保存")

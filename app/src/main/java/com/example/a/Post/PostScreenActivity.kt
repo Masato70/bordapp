@@ -10,9 +10,12 @@ import android.widget.Toast
 import com.example.a.Home.HomeFragment
 import com.example.a.MainActivity
 import com.example.a.databinding.ActivityPostScreenBinding
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.util.*
+import kotlin.collections.HashMap
 
 class PostScreenActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPostScreenBinding
@@ -32,16 +35,12 @@ class PostScreenActivity : AppCompatActivity() {
         val user = Firebase.auth.currentUser
         val uid = user!!.uid
 
-        val docData: HashMap<String, Any> = hashMapOf(
-            "numberExample" to 3.14159265
-        )
-
         val nestedData: HashMap<String, Any> = hashMapOf(
             "Title" to binding.etTitle.text.toString(),
-            "details" to binding.etdetails.text.toString()
-        )
+            "details" to binding.etdetails.text.toString(),
+            "date" to Timestamp(Date())
 
-        docData["objectExample"] = nestedData
+        )
 
         db.collection("users").document(uid)
             .collection("user posts").document("Post")

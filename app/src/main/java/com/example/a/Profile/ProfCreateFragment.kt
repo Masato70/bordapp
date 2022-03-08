@@ -23,6 +23,8 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
+import java.io.File
 
 class ProfCreateFragment : Fragment() {
 
@@ -85,12 +87,10 @@ class ProfCreateFragment : Fragment() {
             photoUri = Uri.parse(icon)
         }
 
-        user!!.updateProfile(profileu_pdates)
-            .addOnCompleteListener { tast ->
-                if (tast.isSuccessful) {
-                    Log.d(TAG, "アイコン更新しました")
-                }
-            }
+
+//        val storage = Firebase.storage
+//        val file = Uri.fromFile(File.createTempFile())
+
 
         if (name.isNotEmpty() && age.isNotEmpty() && prof.isNotEmpty()) {
 

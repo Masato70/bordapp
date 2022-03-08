@@ -17,11 +17,13 @@ class CustomAdapter(private val postlist: ArrayList<Post>) :
         val icon: ImageView
         val title: TextView
         val post: TextView
+        val createAt: TextView
 
         init {
             icon = view.findViewById(R.id.icon)
             title = view.findViewById(R.id.tvtitle)
             post = view.findViewById(R.id.tvpost)
+            createAt = view.findViewById(R.id.tvtime)
         }
     }
 
@@ -38,7 +40,8 @@ class CustomAdapter(private val postlist: ArrayList<Post>) :
 
         viewHolder.icon.setImageResource(post.icon)
         viewHolder.title.text = post.title
-        viewHolder.post.text = post.detail
+        viewHolder.post.text = post.detail.toString()
+        viewHolder.createAt.text = post.createAt.toString()
     }
 
     //表示数を返す
